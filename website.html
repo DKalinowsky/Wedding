@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dawid & Anita | 06 czerwca 2026</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        /* Definicja palety kolorów i czcionek inspirowanych zaproszeniem */
+        :root {
+            --color-background: #FBF9F7; /* Złamana biel/bardzo jasny beż */
+            --color-text: #645A52;      /* Ciemny, ciepły szary/brąz */
+            --color-heading: #584941;   /* Ciemniejszy brąz dla nagłówków */
+            --color-accent: #A68F81;     /* Akcent - pudrowy, zgaszony róż/beż */
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-script: 'Dancing Script', cursive;
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-family: var(--font-serif);
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            color: var(--color-heading);
+            font-weight: 600;
+        }
+
+        .font-script {
+            font-family: var(--font-script);
+            color: var(--color-accent);
+        }
+        
+        /* Styl dla sekcji "Hero" z grafiką w tle */
+        .hero-section {
+            background-image: url('https://i.imgur.com/BfP0bGL.png'); /* Grafika inspirowana zaproszeniem */
+            background-size: cover;
+            background-position: center center;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .hero-overlay {
+            background-color: rgba(251, 249, 247, 0.6); /* Lekka warstwa dla czytelności */
+        }
+        
+        /* Styl dla dekoracyjnych grafik w rogach sekcji */
+        .section-decorated {
+            position: relative;
+            background-image: url('https://i.imgur.com/gK1kX7n.png'), url('https://i.imgur.com/Uv0C4nC.png');
+            background-position: top left, bottom right;
+            background-repeat: no-repeat;
+            background-size: 250px auto, 250px auto;
+        }
+
+        /* Animacja pojawiania się elementów przy przewijaniu */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Styl dla osi czasu w harmonogramie */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 2rem;
+            bottom: -2rem;
+            width: 2px;
+            background-color: #e2d8d3;
+            transform: translateX(-50%);
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .timeline-icon {
+            background-color: var(--color-background);
+            border: 2px solid #e2d8d3;
+        }
+        
+        /* Responsywność dla grafik dekoracyjnych */
+        @media (max-width: 768px) {
+            .section-decorated {
+                background-size: 150px auto, 150px auto;
+            }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Nawigacja -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[rgba(251,249,247,0.8)] backdrop-blur-sm shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#home" class="font-script text-2xl tracking-wider text-gray-700">A&D</a>
+            <div class="hidden md:flex space-x-8 items-center text-sm tracking-widest uppercase">
+                <a href="#story" class="hover:text-[var(--color-accent)] transition-colors">O Nas</a>
+                <a href="#schedule" class="hover:text-[var(--color-accent)] transition-colors">Harmonogram</a>
+                <a href="#details" class="hover:text-[var(--color-accent)] transition-colors">Informacje</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobilne menu -->
+        <div id="mobile-menu" class="hidden md:hidden flex-col items-center py-4 space-y-4 bg-[rgba(251,249,247,0.95)]">
+            <a href="#story" class="block hover:text-[var(--color-accent)] transition-colors">O Nas</a>
+            <a href="#schedule" class="block hover:text-[var(--color-accent)] transition-colors">Harmonogram</a>
+            <a href="#details" class="block hover:text-[var(--color-accent)] transition-colors">Informacje</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Sekcja Główna (Hero) -->
+        <section id="home" class="hero-section flex items-center justify-center text-center text-[var(--color-heading)]">
+            <div class="hero-overlay absolute inset-0"></div>
+            <div class="relative z-10 p-4">
+                <h2 class="text-2xl md:text-3xl tracking-widest uppercase reveal">ZAPROSZENIE</h2>
+                <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl my-4 reveal" style="transition-delay: 0.2s;">Anita <span class="font-script text-5xl md:text-7xl">&</span> Dawid</h1>
+                <p class="text-2xl md:text-3xl tracking-widest my-6 reveal" style="transition-delay: 0.4s;">6 czerwca 2026</p>
+                <div id="countdown" class="flex justify-center space-x-4 md:space-x-8 mt-8 text-sm md:text-base reveal" style="transition-delay: 0.6s;">
+                    <div><span id="days" class="block text-3xl md:text-4xl font-bold">0</span>DNI</div>
+                    <div><span id="hours" class="block text-3xl md:text-4xl font-bold">0</span>GODZIN</div>
+                    <div><span id="minutes" class="block text-3xl md:text-4xl font-bold">0</span>MINUT</div>
+                    <div><span id="seconds" class="block text-3xl md:text-4xl font-bold">0</span>SEKUND</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sekcja "Nasza Historia" -->
+        <section id="story" class="py-20 md:py-32 section-decorated">
+            <div class="container mx-auto px-6 text-center max-w-3xl">
+                <h2 class="font-script text-5xl md:text-6xl mb-8 reveal">Nasza Historia</h2>
+                <p class="text-lg leading-relaxed mb-12 reveal">
+                    Nasza wspólna podróż zaczęła się od przypadku, a przerodziła w najpiękniejszą przygodę. Połączyły nas rozmowy do białego rana, wspólne pasje i marzenia, które teraz, krok po kroku, realizujemy. Dziś, z sercami pełnymi radości, pragniemy zaprosić Was, byście byli świadkami momentu, w którym obiecamy sobie miłość na zawsze.
+                </p>
+                <div class="w-full max-w-lg mx-auto my-12 reveal">
+                    <img src="https://placehold.co/600x400/FBF9F7/645A52?text=Wasze+zdjęcie" alt="Anita i Dawid" class="rounded-lg shadow-xl">
+                </div>
+                <p class="text-xl italic leading-loose text-center border-t border-b border-[#e2d8d3] py-8 reveal">
+                    "Nie wystarczy pokochać, trzeba jeszcze umieć wziąć tę miłość w ręce i przenieść ją przez całe życie."
+                    <span class="block text-base not-italic mt-4 opacity-80">- Konstanty Ildefons Gałczyński</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Sekcja "Harmonogram" -->
+        <section id="schedule" class="py-20 md:py-32 bg-white/50">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <div class="text-center mb-16">
+                    <h2 class="font-script text-5xl md:text-6xl mb-4 reveal">Plan Dnia</h2>
+                    <p class="reveal">Abyście mogli w pełni cieszyć się tym dniem razem z nami.</p>
+                </div>
+
+                <div class="relative">
+                    <!-- Ceremonia -->
+                    <div class="timeline-item flex mb-12 reveal">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full timeline-icon flex items-center justify-center mr-6 relative z-10">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--color-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                        </div>
+                        <div class="flex-grow pt-1">
+                            <p class="font-bold text-lg text-[var(--color-heading)]">15:00 - Ceremonia Zaślubin</p>
+                            <p class="mt-1">Parafia pw. św. Jana Chrzciciela</p>
+                            <p class="text-sm opacity-70">Łącko, ul. Kościelna 18</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Parafia+pw.+św.+Jana+Chrzciciela+w+Łącku" target="_blank" class="text-sm text-[var(--color-accent)] hover:underline mt-1 inline-block">Zobacz na mapie</a>
+                        </div>
+                    </div>
+                    <!-- Wesele -->
+                    <div class="timeline-item flex mb-12 reveal">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full timeline-icon flex items-center justify-center mr-6 relative z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--color-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <div class="flex-grow pt-1">
+                             <p class="font-bold text-lg text-[var(--color-heading)]">16:30 - Przyjęcie Weselne</p>
+                            <p class="mt-1">Grodzisko Zyndrama</p>
+                            <p class="text-sm opacity-70">Łącko 1050</p>
+                             <a href="https://www.google.com/maps/search/?api=1&query=Grodzisko+Zyndrama+Łącko" target="_blank" class="text-sm text-[var(--color-accent)] hover:underline mt-1 inline-block">Zobacz na mapie</a>
+                        </div>
+                    </div>
+                    <!-- Atrakcje -->
+                    <div class="timeline-item flex mb-12 reveal">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full timeline-icon flex items-center justify-center mr-6 relative z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--color-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                        </div>
+                         <div class="flex-grow pt-1">
+                             <p class="font-bold text-lg text-[var(--color-heading)]">Atrakcje Wieczoru</p>
+                            <p class="mt-2">17:00 - 01:00 Drink Bar</p>
+                            <p>17:30 - 19:30 Fotobudka</p>
+                            <p>22:00 Tort Weselny</p>
+                        </div>
+                    </div>
+                     <!-- Poprawiny -->
+                    <div class="timeline-item flex reveal">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full timeline-icon flex items-center justify-center mr-6 relative z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--color-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <div class="flex-grow pt-1">
+                            <p class="font-bold text-lg text-[var(--color-heading)]">07.06 - Poprawiny</p>
+                            <p class="mt-1">Zapraszamy od godziny 14:00</p>
+                            <p class="text-sm opacity-70">Grodzisko Zyndrama, Złota Sala</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sekcja "Informacje" -->
+        <section id="details" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 max-w-4xl">
+                 <div class="text-center mb-16">
+                    <h2 class="font-script text-5xl md:text-6xl mb-4 reveal">Ważne Informacje</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="reveal">
+                        <h3 class="text-2xl font-bold mb-4">Dojazd</h3>
+                        <p class="mb-6">Dla Waszej wygody przygotowaliśmy mapę z zaznaczonymi najważniejszymi lokalizacjami. Mamy nadzieję, że ułatwi Wam to dotarcie na miejsce.</p>
+                        <h3 class="text-2xl font-bold mb-4">Noclegi</h3>
+                        <p class="mb-6">Dla gości przyjezdnych przygotowaliśmy listę polecanych hoteli w okolicy. Prosimy o kontakt, jeśli potrzebujecie pomocy z rezerwacją.</p>
+                        <h3 class="text-2xl font-bold mb-4">Prezenty</h3>
+                        <p>Wasza obecność jest dla nas najpiękniejszym prezentem. Jeśli jednak chcielibyście nas obdarować, będziemy wdzięczni za wsparcie w organizacji naszej podróży poślubnej.</p>
+                    </div>
+                    <div class="reveal">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10332.610996885374!2d20.42186854201048!3d49.55944983086704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47160775a438072d%3A0x868b815a513364c!2zxYHDhWNrbw!5e0!3m2!1spl!2spl!4v1663084323641!5m2!1spl!2spl" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-lg shadow-xl"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Stopka -->
+    <footer class="py-12 text-center">
+        <div class="container mx-auto px-6">
+            <p class="font-script text-3xl text-[var(--color-accent)]">Anita & Dawid</p>
+            <p class="mt-2 text-sm opacity-70">06.06.2026</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Logika dla mobilnego menu ---
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('flex');
+            });
+
+            // --- Logika dla licznika czasu ---
+            const weddingDate = new Date("Jun 6, 2026 15:00:00").getTime();
+            const countdownFunction = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
+
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById("countdown").innerHTML = "<p class='text-2xl'>DZIĘKUJEMY, ŻE BYLIŚCIE Z NAMI!</p>";
+                }
+            }, 1000);
+            
+            // --- Logika dla animacji przy przewijaniu ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+            
+        });
+    </script>
+
+</body>
+</html>
+
+
